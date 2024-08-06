@@ -8,9 +8,6 @@
 */
 
 import router from '@adonisjs/core/services/router'
+const PdfController = () => import('#controllers/pdf_controller')
 
-router.get('/', async () => {
-  return {
-    hello: 'world',
-  }
-})
+router.get('/pdf', [PdfController, 'index'])
