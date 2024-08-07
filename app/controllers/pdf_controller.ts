@@ -7,6 +7,10 @@ import UrlUtils from '../../utils/url.js'
 export default class PdfController {
   constructor(protected puppeteerService: PuppeteerService) {}
 
+  /**
+   * @index
+   * @paramQuery url - URL - @type(string) @required
+   */
   async index({ response, request }: HttpContext) {
     const url = request.input('url')
 
