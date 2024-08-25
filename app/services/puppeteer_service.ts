@@ -1,5 +1,8 @@
 import puppeteer from 'puppeteer'
-import BasePuppeteerService, { GeneratePdfParams } from '#services/base_puppeteer_service'
+import BasePuppeteerService, {
+  GenerateImageParams,
+  GeneratePdfParams,
+} from '#services/base_puppeteer_service'
 
 export default class PuppeteerService extends BasePuppeteerService {
   constructor() {
@@ -16,5 +19,21 @@ export default class PuppeteerService extends BasePuppeteerService {
     await browser.close()
 
     return pdf
+  }
+
+  async generateImage(params: GenerateImageParams) {
+    const browser = await puppeteer.launch()
+    const page = await browser.newPage()
+    await page.goto(params.url, {
+      waitUntil: 'networkidle2',
+    })
+
+    const image = await page.screenshot({
+      fullPage: true, //params.fullPage,
+      type: 'png',
+    })
+    await browser.close()
+
+    return image
   }
 }
